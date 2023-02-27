@@ -1,0 +1,18 @@
+import { Injectable, Inject } from '@nestjs/common';
+import Product from '../../../domain/models/pokemon.model';
+import { PokemonRepository } from '../../../domain/ports/pokemon.repository';
+import { Optional } from 'typescript-optional';
+
+@Injectable()
+export default class UpdatePokemonUsecase {
+  constructor(
+    @Inject('PokemonRepository') private productRepository: PokemonRepository,
+  ) {}
+
+  public handler(
+    productId: string,
+    product: Product,
+  ): Promise<Optional<Product>> {
+    return this.productRepository.updatePokemon(productId, product);
+  }
+}
